@@ -1,4 +1,14 @@
-import { memo } from 'react';
+import { memo, useState /* lazy */ } from 'react'; // Para aplicações sem SSR utilizar o lazy
+import dynamic from 'next/dynamic'
+
+// import { AddProductToWishlist } from './AddProductToWishlist';
+import { AddProductToWishlistProps } from './AddProductToWishlist';
+
+const AddProductToWishlist = dynamic<AddProductToWishlistProps>(() => {
+  return import('./AddProductToWishlist').then(module => module.AddProductToWishlist)
+}, {
+  loading: () => <span>Carregando...</span>
+})
 
 type ProductItemProps = {
   product: {
@@ -11,10 +21,19 @@ type ProductItemProps = {
 }
 
 function ProductItemComponent({ product, onAddToWishlist }: ProductItemProps) {
+  const [isAddingToWishlist, setIsAddingToWishlist] = useState(false);
+
   return (
     <div>
       {product.title} - <strong>{product.priceFormatted}</strong>
-      <button onClick={() => onAddToWishlist(product.id)}>add to wishlist</button>
+      <button onClick={() => setIsAddingToWishlist(true)}>Adicionar aos favoritos</button>
+
+      {isAddingToWishlist && (
+        <AddProductToWishlist 
+          onAddToWishlist={() => onAddToWishlist(product.id)} 
+          onRequestClose={() => setIsAddingToWishlist(false)}
+        />
+      )}
     </div>
   );
 }
@@ -48,4 +67,10 @@ export const ProductItem = memo(ProductItemComponent, (prevProps, nextProps) => 
  * 2. Componentes que re-renderizam muito
  * 3. Componentes que re-renderizam mesmo tendo as mesmas propriedades
  * 4. Não vale a pena utilizar em componentes pequenos
+ */
+
+/**
+ * Code splitting
+ * 
+ * Trata-se de importar dinamicamente um recurso apenas quando necessário (lazy import)
  */
