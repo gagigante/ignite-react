@@ -76,7 +76,7 @@ export default function Home() {
 }
 
 /**
- * useMemo 
+ * useCallback 
  * 
  * -> Função que memoriza (memoization) uma função e evita que ela seja montada do zero caso seu array de dependências não mude
  * -> Conserva a função no mesmo endereço permitindo a comparação referencial
