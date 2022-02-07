@@ -1,5 +1,5 @@
 {
-  "name": "example-app",
+  "name": "performance-app",
   "private": true,
   "scripts": {
     "dev": "next dev",
