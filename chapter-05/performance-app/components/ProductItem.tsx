@@ -58,9 +58,7 @@ export const ProductItem = memo(ProductItemComponent, (prevProps, nextProps) => 
  * -> Para modificar o comportamento padrão é necessário passar um segundo argumento que retornará um boolean que indica se o componente deve ou não ser re-renderizado
  * 
  * Caso nenhuma prop do componente em questão tenha sido modificada, evita os passos 1 e 2
- */
-
-/**
+ *
  * Quando devo utilizar?
  * 
  * 1. Em componentes puros (Um componente dado as mesmas props sempre retornam o mesmo resultado)
